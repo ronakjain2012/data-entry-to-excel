@@ -83,7 +83,16 @@ class Api {
     getFilesStats(fileName) {
         const { path, method } = this.GET_FILES_STATS;
         const parameters = {
-            data: {fileName},
+            data: { fileName },
+        };
+        return this.makeRequest(path, method, parameters);
+    }
+
+    GET_SEARCH_ROW = { path: 'api/files-search-id', method: 'POST' };
+    getSearchRow(fileName, Id) {
+        const { path, method } = this.GET_SEARCH_ROW;
+        const parameters = {
+            data: { fileName, Id },
         };
         return this.makeRequest(path, method, parameters);
     }
