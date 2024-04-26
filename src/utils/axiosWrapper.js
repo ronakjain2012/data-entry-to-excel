@@ -97,6 +97,15 @@ class Api {
         return this.makeRequest(path, method, parameters);
     }
 
+    UPDATE_SELECTED_ROW = { path: 'api/files-update-id', method: 'POST' };
+    updateSelectedRow(fileName, Id, updatedRow) {
+        const { path, method } = this.UPDATE_SELECTED_ROW;
+        const parameters = {
+            data: { fileName, Id, updatedRow },
+        };
+        return this.makeRequest(path, method, parameters);
+    }
+
     // REWRITES_LIST = { path: 'rewrite/list', method: 'GET' };
 
     // REWRITE_ADD = { path: 'rewrite/add', method: 'POST' };

@@ -1,4 +1,5 @@
 import * as XLSX from 'xlsx';
+import fs from 'fs';
 
 export const makeid = function (length = 10) {
     let result = ''
@@ -35,6 +36,8 @@ export const toSlug = (st) => {
         .replace(/[^\w ]+/g, '')
         .replace(/ +/g, '-')
 }
+
+export const getStaticCols = () => fs.readFileSync('./public/input/config/cols.txt', 'utf8').toString().split('\n')
 
 export const readXLSXFile = async function (fileName) {
     try {

@@ -31,7 +31,7 @@ export default function Home() {
     useEffect(() => {
         axiosWrapper.getFilesXLSX().then((data) => {
             let f = data.files || []
-            f = f.filter(e => !e.startsWith('~'))
+            f = f.filter(e => !e.startsWith('~') && e.endsWith('xlsx'))
             setFilesList(f)
         })
     }, [])
@@ -73,15 +73,25 @@ export default function Home() {
                     setApiProcess({ ...apiProcess, loading: false })
                 })
             }
+        } else {
+            if (e.key === 'Enter') {
+                setApiProcess({ ...apiProcess, loading: true })
+                axiosWrapper.updateSelectedRow(currentFile, formData['ID'], formData).then(resp => {
+                    console.log(resp)
+                }).catch(err => { console.log(err) }).finally(() => {
+                    setApiProcess({ ...apiProcess, loading: false })
+                })
+            }
         }
     }
 
     return <>
         <Header />
-        {apiProcess.loading ? <div class="absolute bg-white backdrop-blur-sm bg-opacity-60 z-10 h-full w-full flex items-center justify-center">
-            <div class="flex items-center gap-2 text-gray-500">
-                <span class="h-6 w-6 block rounded-full border-4 border-t-blue-300 animate-spin"></span>
-                loading...
+        {apiProcess.loading ? <div className="absolute bg-white backdrop-blur-sm bg-opacity-60 z-10 h-full w-full flex items-center justify-center">
+            <div className="flex flex-col items-center gap-2 text-gray-500">
+                <span className="h-6 w-6 block rounded-full border-4 border-t-blue-300 animate-spin"></span>
+                <h2 className="text-center text-xl font-semibold">Loading...</h2>
+                <p className="w-auto text-center">This may take a few seconds, please don't close this page.</p>
             </div>
         </div> : ''}
 
