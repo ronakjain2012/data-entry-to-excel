@@ -37,7 +37,7 @@ export const toSlug = (st) => {
         .replace(/ +/g, '-')
 }
 
-export const getStaticCols = () => fs.readFileSync('./public/input/config/cols.txt', 'utf8').toString().split('\n')
+export const getStaticCols = () => fs.readFileSync('./public/input/config/cols.txt', 'utf8').toString().split('\n').map(e => String(e).trim())
 
 export const readXLSXFile = async function (fileName) {
     try {
